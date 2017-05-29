@@ -15,32 +15,26 @@ void Enemy::SetDestinaiton(float x, float y)
 void Enemy::FollowPlayer()
 {
 
-	float x, y;
-	if (position.GetX() > destination.GetX())
-	{
-		x = position.GetX();
-		x -= 2.0f;
-		position.SetX(x);
-	}
-	else if (position.GetX() < destination.GetX())
-	{
-		x = position.GetX();
-		x += 2.0f;
-		position.SetX(x);
-	}
-	if (position.GetY() > destination.GetY())
-	{
-		y = position.GetY();
-		y -= 2.0f;
-		position.SetY(y);
+	Vec2 diff;
 
-	}
-	else if (position.GetY() < destination.GetY())
-	{
-		y = position.GetY();
-		y += 2.0f;
-		position.SetY(y);
-	}
+	diff.SetX(destination.GetX() - position.GetX());
+	diff.SetY(destination.GetY() - position.GetY());
+
+	if (diff.GetLength() == 0)        
+		return;
+
+	const float speed = 2.0f;       
+
+	diff.SetMagnitude(speed);
+
+	float x = position.GetX();
+	float y = position.GetY();
+
+	x += diff.GetX();
+	y += diff.GetY();
+
+	position.SetX(x);
+	position.SetY(y);
 }
 
 void Enemy::SetPosX(float x)
@@ -71,4 +65,3 @@ void Enemy::Draw()
 	glVertex2f(position.GetX(), position.GetY());
 	glEnd();
 }
-

@@ -15,7 +15,7 @@ bool go_left = false;
 
 
 Player player;
-Enemy enemy[5];
+Enemy enemy[20];
 
 static void resize(int width, int height)    
 {
@@ -32,7 +32,7 @@ void timer(int) {
 	glutTimerFunc(1000 / 60, timer, 0);
 	float posx, posy;
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		enemy[i].FollowPlayer();
 	}
@@ -77,7 +77,7 @@ static void display(void)
 	float posx = rand() % 1270 + 5;
 	float posy = rand() % 710 + 5;
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		enemy[i].Draw();
 		enemy[i].SetDestinaiton(player.GetPosX(), player.GetPosY());
@@ -139,7 +139,7 @@ void Init()
 	srand(time(NULL));
 	float posx, posy;
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		posx = rand() % 1270 + 5;
 		posy = rand() % 710 + 5;
