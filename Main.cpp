@@ -17,6 +17,20 @@ bool go_left = false;
 Player player;
 Enemy enemy[20];
 
+void Init()
+{
+	srand(time(NULL));
+	float posx, posy;
+
+	for (int i = 0; i < 20; i++)
+	{
+		posx = rand() % 1270 + 5;
+		posy = rand() % 710 + 5;
+		enemy[i].SetPosX(posx);
+		enemy[i].SetPosY(posy);
+	}
+}
+
 static void resize(int width, int height)    
 {
 	glViewport(0, 0, width, height);
@@ -34,7 +48,7 @@ void timer(int) {
 
 	for (int i = 0; i < 20; i++)
 	{
-		enemy[i].FollowPlayer();
+		enemy[i].MoveToDestination();
 	}
 
 	if (go_forward)
@@ -76,7 +90,6 @@ static void display(void)
 	srand(time(NULL));
 	float posx = rand() % 1270 + 5;
 	float posy = rand() % 710 + 5;
-
 	for (int i = 0; i < 20; i++)
 	{
 		enemy[i].Draw();
@@ -106,6 +119,9 @@ static void key(unsigned char key, int x, int y)
 	case 'd':
 		go_right = true;
 		break;
+	case 'r':
+		Init();
+		break;
 	}
 
 	glutPostRedisplay();          
@@ -134,20 +150,6 @@ static void keyup(unsigned char key, int x, int y)
 }
 
 
-void Init()
-{
-	srand(time(NULL));
-	float posx, posy;
-
-	for (int i = 0; i < 20; i++)
-	{
-		posx = rand() % 1270 + 5;
-		posy = rand() % 710 + 5;
-		enemy[i].SetPosX(posx);
-		enemy[i].SetPosY(posy);
-	}
-}
-
 int main(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
@@ -157,7 +159,6 @@ int main(int argc, char *argv[])
 
 	glutCreateWindow("MI try");
 	Init();
-
 
 	glutReshapeFunc(resize);
 	glutDisplayFunc(display);

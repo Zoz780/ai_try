@@ -4,17 +4,22 @@ Enemy::Enemy()
 {
 	position.SetX(5);
 	position.SetY(5);
+	pathfinder.LoadWaypoints();
 }
 
 void Enemy::SetDestinaiton(float x, float y)
 {
-	destination.SetX(x);
-	destination.SetY(y);
+	/*destination.SetX(x);
+	destination.SetY(y);*/
+
+	Vec2 goal;
+	goal = pathfinder.SearchClosestWaypoint(position.GetX(), position.GetY());
+	destination.SetX(goal.GetX());
+	destination.SetY(goal.GetY());
 }
 
-void Enemy::FollowPlayer()
+void Enemy::MoveToDestination()
 {
-
 	Vec2 diff;
 
 	diff.SetX(destination.GetX() - position.GetX());
@@ -59,6 +64,8 @@ float Enemy::GetPosY()
 
 void Enemy::Draw()
 {
+	pathfinder.DrawWaypoints();
+
 	glPointSize(10);
 	glBegin(GL_POINTS);
 	glColor3f(1, 0, 0);

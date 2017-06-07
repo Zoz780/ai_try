@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "PathFinder.h"
 #include "Vec2.h"
 #include <glut.h>
 
@@ -10,7 +11,7 @@ public:
 
 	void SetDestinaiton(float x, float y);
 
-	void FollowPlayer();
+	void MoveToDestination();
 
 	void SetPosX(float x);
 	float GetPosX();
@@ -22,6 +23,6 @@ public:
 
 private:
 	Vec2 destination;
-
+	PathFinder pathfinder;
 };
 
